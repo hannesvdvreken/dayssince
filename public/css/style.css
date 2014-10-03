@@ -1,0 +1,51 @@
+@import url(//fonts.googleapis.com/css?family=Lato:700);
+
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  color: #999;
+}
+
+.welcome {
+  width: 450px;
+  height: 220px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -225px;
+  margin-top: -110px;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2 {
+  margin: 0px;
+}
+
+h1 {
+  font-size: 108px;
+}
+
+h2 {
+  font-size: 38px;
+}
+
+.bad {
+  color: red;
+}
+
+.better {
+  color: orange;
+}
+
+.ok {
+  color: yellow;
+}
+
+.good {
+  color: green;
+}

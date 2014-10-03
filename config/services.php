@@ -28,4 +28,10 @@ return [
         'secret' => '',
     ],
 
+    'reamaze' => [
+        'brand' => 'madewithlove',
+        'email' => getenv('REAMAZE_EMAIL'),
+        'token' => getenv('REAMAZE_TOKEN'),
+    ],
+
 ];
