@@ -29,7 +29,7 @@ return [
     ],
 
     'reamaze' => [
-        'brand' => 'madewithlove',
+        'brand' => '',
         'email' => getenv('REAMAZE_EMAIL'),
         'token' => getenv('REAMAZE_TOKEN'),
     ],

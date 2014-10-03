@@ -13,7 +13,7 @@
         <a href="{{{ Config::get('dayssince.url') }}}">{{{ Config::get('dayssince.project') }}}</a>:
       </h2>
       <h1 class="{{ $type }}">
-        <a href="https://madewithlove.reamaze.com/admin/conversations/{{ $latest['slug'] }}">
+        <a href="https://{{ Config::get('services.reamaze.brand') }}.reamaze.com/admin/conversations/{{ $latest['slug'] }}">
           {{ $days }}
         </a>
       </h1>
