@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use Illuminate\Foundation\Support\Providers\FilterServiceProvider as ServiceProvider;
 
@@ -11,7 +11,7 @@ class FilterServiceProvider extends ServiceProvider
      * @var array
      */
     protected $before = [
-        'App\Http\Filters\MaintenanceFilter',
+        'Dayssince\Http\Filters\MaintenanceFilter',
     ];
 
     /**
@@ -29,9 +29,9 @@ class FilterServiceProvider extends ServiceProvider
      * @var array
      */
     protected $filters = [
-        'auth' => 'App\Http\Filters\AuthFilter',
-        'auth.basic' => 'App\Http\Filters\BasicAuthFilter',
-        'csrf' => 'App\Http\Filters\CsrfFilter',
-        'guest' => 'App\Http\Filters\GuestFilter',
+        'auth' => 'Dayssince\Http\Filters\AuthFilter',
+        'auth.basic' => 'Dayssince\Http\Filters\BasicAuthFilter',
+        'csrf' => 'Dayssince\Http\Filters\CsrfFilter',
+        'guest' => 'Dayssince\Http\Filters\GuestFilter',
     ];
 }

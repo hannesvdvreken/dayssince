@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Filters;
+namespace Dayssince\Http\Filters;
 
 use Illuminate\Contracts\Auth\Authenticator;
 

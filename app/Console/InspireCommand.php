@@ -1,5 +1,5 @@
 <?php
-namespace App\Console;
+namespace Dayssince\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

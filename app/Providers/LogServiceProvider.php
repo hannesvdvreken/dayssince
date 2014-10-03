@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

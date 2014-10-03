@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use InspireCommand;
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +18,8 @@ class ArtisanServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands('App\Console\InspireCommand');
+        $this->commands('Dayssince\Console\InspireCommand');
+        $this->commands('Dayssince\Console\ReamazeCommand');
     }
 
     /**
@@ -28,6 +29,6 @@ class ArtisanServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['App\Console\InspireCommand'];
+        return ['Dayssince\Console\InspireCommand'];
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function before(Router $router, UrlGenerator $url)
     {
-        $url->setRootControllerNamespace('App\Http\Controllers');
+        $url->setRootControllerNamespace('Dayssince\Http\Controllers');
     }
 
     /**
@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         // file. This "namespace" helper will load the routes file within a
         // route group which automatically sets the controller namespace.
         $this->app->booted(function () {
-            $this->namespaced('App\Http\Controllers', function (Router $router) {
+            $this->namespaced('Dayssince\Http\Controllers', function (Router $router) {
                 require app_path() . '/Http/routes.php';
             });
         });

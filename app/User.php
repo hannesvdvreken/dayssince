@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Dayssince;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Database\Eloquent\Model;

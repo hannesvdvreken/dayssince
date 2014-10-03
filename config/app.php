@@ -98,13 +98,14 @@ return [
         /*
          * Application Service Providers...
          */
-        'App\Providers\AppServiceProvider',
-        'App\Providers\ArtisanServiceProvider',
-        'App\Providers\ErrorServiceProvider',
-        'App\Providers\EventServiceProvider',
-        'App\Providers\FilterServiceProvider',
-        'App\Providers\LogServiceProvider',
-        'App\Providers\RouteServiceProvider',
+        'Dayssince\Providers\AppServiceProvider',
+        'Dayssince\Providers\ArtisanServiceProvider',
+        'Dayssince\Providers\ErrorServiceProvider',
+        'Dayssince\Providers\EventServiceProvider',
+        'Dayssince\Providers\FilterServiceProvider',
+        'Dayssince\Providers\LogServiceProvider',
+        'Dayssince\Providers\RouteServiceProvider',
+        'Dayssince\Services\Reamaze\ServiceProvider',
 
         /*
          * Laravel Framework Service Providers...
@@ -129,7 +130,6 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-
     ],
 
     /*

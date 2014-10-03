@@ -1,5 +1,5 @@
 <?php
-namespace App\Providers;
+namespace Dayssince\Providers;
 
 use Exception;
 use Illuminate\Contracts\Logging\Log;
