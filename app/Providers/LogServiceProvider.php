@@ -1,29 +1,26 @@
-<?php namespace App\Providers;
+<?php
+namespace App\Providers;
 
 use Illuminate\Contracts\Logging\Log;
 use Illuminate\Support\ServiceProvider;
 
-class LogServiceProvider extends ServiceProvider {
+class LogServiceProvider extends ServiceProvider
+{
+    /**
+     * Configure the application's logging facilities.
+     *
+     * @param Log $log
+     */
+    public function boot(Log $log)
+    {
+        $log->useFiles(storage_path() . '/laravel.log');
+    }
 
-	/**
-	 * Configure the application's logging facilities.
-	 *
-	 * @param  Log  $log
-	 * @return void
-	 */
-	public function boot(Log $log)
-	{
-		$log->useFiles(storage_path().'/laravel.log');
-	}
-
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		//
-	}
-
+    /**
+     * Register the service provider.
+     */
+    public function register()
+    {
+        //
+    }
 }
