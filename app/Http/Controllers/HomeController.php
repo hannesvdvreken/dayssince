@@ -4,6 +4,7 @@ namespace Dayssince\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
 use Dayssince\Services\Reamaze\Reamaze;
 
@@ -22,12 +23,24 @@ class HomeController extends Controller
     |
     */
 
-    public function index(Reamaze $reamaze)
+    public function index(Reamaze $reamaze, $projectName = null)
     {
         // Initialize.
         $latest = null;
 
-        foreach (Config::get('dayssince.contacts') as $contact) {
+        // Get default project name
+        if (!$projectName) {
+            $projectName = Config::get('dayssince.default');
+        }
+
+        // Get the project configuration.
+        $project = Config::get('dayssince.projects.'. $projectName);
+
+        if (!$project) {
+            return Response::view('404', ['project_name' => $projectName], 404);
+        }
+
+        foreach ($project['contacts'] as $contact) {
             // Get lastest conversation for contact.
             $conversations = $reamaze->getConversations(null, null, $contact, 1);
 
@@ -64,6 +77,6 @@ class HomeController extends Controller
                 $type = 'good';
         }
 
-        return View::make('since', compact('latest', 'days', 'type'));
+        return View::make('since', compact('latest', 'days', 'type', 'project'));
     }
 }
