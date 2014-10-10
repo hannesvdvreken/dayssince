@@ -11,4 +11,4 @@
 |
 */
 
-$router->get('/', 'HomeController@index');
+$router->get('/{project?}', 'HomeController@index');

@@ -10,7 +10,7 @@
     @if ($latest)
       <h2>
         {{{ trans('dayssince.title') }}}
-        <a href="{{{ Config::get('dayssince.url') }}}">{{{ Config::get('dayssince.project') }}}</a>:
+        <a href="{{{ $project['url'] }}}">{{{ $project['name'] }}}</a>:
       </h2>
       <h1 class="{{ $type }}">
         <a href="https://{{ Config::get('services.reamaze.brand') }}.reamaze.com/admin/conversations/{{ $latest['slug'] }}">
@@ -20,8 +20,8 @@
     @else
       <h2>
         {{{ trans('dayssince.no_tickets_title') }}}
-        <a href="{{{ Config::get('dayssince.url') }}}">
-          {{{ Config::get('dayssince.project') }}}
+        <a href="{{{ $project['url'] }}}">
+          {{{ $project['name'] }}}
         </a>
       </h2>
     @endif
