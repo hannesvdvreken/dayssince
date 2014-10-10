@@ -28,8 +28,13 @@ class Reamaze
      * @param int $limit
      * @return array
      */
-    public function getConversations($filter = 'all', $sort = 'created', $for = null, $limit = null)
+    public function getConversations($filter = null, $sort = null, $for = null, $limit = null)
     {
+        // Defaults.
+        $filter = $filter ?: 'all';
+        $sort = $sort ?: 'created';
+
+        // Create url query for guzzle.
         $query = compact('filter', 'sort');
 
         if ($for) {
