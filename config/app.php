@@ -102,7 +102,6 @@ return [
         'Dayssince\Providers\ArtisanServiceProvider',
         'Dayssince\Providers\ErrorServiceProvider',
         'Dayssince\Providers\EventServiceProvider',
-        'Dayssince\Providers\FilterServiceProvider',
         'Dayssince\Providers\LogServiceProvider',
         'Dayssince\Providers\RouteServiceProvider',
         'Dayssince\Services\Reamaze\ServiceProvider',
@@ -130,6 +129,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
+
     ],
 
     /*

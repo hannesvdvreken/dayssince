@@ -1,12 +1,14 @@
 <?php
-namespace Dayssince\Http\Filters;
+namespace Dayssince\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Closure;
 use Illuminate\Contracts\Auth\Authenticator;
+use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Routing\Route;
+use Illuminate\Http\Request;
 
-class AuthFilter
+class AuthMiddleware implements Middleware
 {
     /**
      * The authenticator implementation.
@@ -35,10 +37,30 @@ class AuthFilter
     }
 
     /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
+                return $this->response->make('Unauthorized', 401);
+            } else {
+                return $this->response->redirectGuest('auth/login');
+            }
+        }
+
+        return $next($request);
+    }
+
+    /**
      * Run the request filter.
      *
-     * @param \Illuminate\Routing\Route $route
-     * @param \Illuminate\Http\Request $request
+     * @param Route $route
+     * @param Request $request
      * @return mixed
      */
     public function filter(Route $route, Request $request)

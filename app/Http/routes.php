@@ -11,4 +11,4 @@
 |
 */
 
-$router->get('/{project?}', 'HomeController@index');
+$router->get('/{project?}', 'DayssinceController@index');

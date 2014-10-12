@@ -1,28 +1,46 @@
 <?php
 namespace Dayssince\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
+use Illuminate\Routing\Stack\Builder as Stack;
+use Illuminate\Foundation\Support\Providers\AppServiceProvider as ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the application's route middleware keys.
+     *
+     * @var array
+     */
+    protected $middleware = [
+        'auth' => 'Dayssince\Http\Middleware\AuthMiddleware',
+        'auth.basic' => 'Dayssince\Http\Middleware\BasicAuthMiddleware',
+        'csrf' => 'Dayssince\Http\Middleware\CsrfMiddleware',
+        'guest' => 'Dayssince\Http\Middleware\GuestMiddleware',
+    ];
 
     /**
-     * Bootstrap any necessary services.
+     * The application's middleware stack.
+     *
+     * @var array
      */
-    public function boot()
-    {
-        //
-    }
+    protected $stack = [
+        'Dayssince\Http\Middleware\MaintenanceMiddleware',
+        'Illuminate\Cookie\Middleware\Guard',
+        'Illuminate\Cookie\Middleware\Queue',
+        'Illuminate\Session\Middleware\Reader',
+        'Illuminate\Session\Middleware\Writer',
+    ];
 
     /**
-     * Register the service provider.
+     * Build the application stack based on the provider properties.
      */
-    public function register()
+    public function stack()
     {
-        // This service provider is a convenient place to register your services
-        // in the IoC container. If you wish, you may make additional methods
-        // or service providers to keep the code more focused and granular.
-
-        //
+        $this->app->stack(function (Stack $stack, Router $router) {
+            return $stack->middleware($this->stack)->then(function ($request) use ($router) {
+                return $router->dispatch($request);
+            });
+        });
     }
 }

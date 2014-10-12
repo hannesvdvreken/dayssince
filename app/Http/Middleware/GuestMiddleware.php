@@ -1,10 +1,13 @@
 <?php
-namespace Dayssince\Http\Filters;
+namespace Dayssince\Http\Middleware;
 
-use Illuminate\Contracts\Auth\Authenticator;
+use Closure;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Auth\Authenticator;
+use Illuminate\Contracts\Routing\Middleware;
+use Illuminate\Http\Request;
 
-class GuestFilter
+class GuestMiddleware implements Middleware
 {
     /**
      * The authenticator implementation.
@@ -21,6 +24,22 @@ class GuestFilter
     public function __construct(Authenticator $auth)
     {
         $this->auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this->auth->check()) {
+            return new RedirectResponse(url('/'));
+        }
+
+        return $next($request);
     }
 
     /**

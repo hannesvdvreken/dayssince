@@ -1,9 +1,12 @@
 <?php
-namespace Dayssince\Http\Filters;
+namespace Dayssince\Http\Middleware;
 
+use Closure;
+use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Auth\Authenticator;
+use Illuminate\Http\Request;
 
-class BasicAuthFilter
+class BasicAuthMiddleware implements Middleware
 {
     /**
      * The authenticator implementation.
@@ -20,6 +23,18 @@ class BasicAuthFilter
     public function __construct(Authenticator $auth)
     {
         $this->auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        return $this->auth->basic() ?: $next($request);
     }
 
     /**
