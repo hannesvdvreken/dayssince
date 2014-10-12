@@ -12,7 +12,7 @@
         {{{ trans('dayssince.title') }}}
         <a href="{{{ $project['url'] }}}">{{{ $project['name'] }}}</a>:
       </h2>
-      <h1 class="{{ $type }}">
+      <h1 class="{{ Form::temperature($days) }}">
         <a href="https://{{ Config::get('services.reamaze.brand') }}.reamaze.com/admin/conversations/{{ $latest['slug'] }}">
           {{ $days }}
         </a>

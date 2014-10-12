@@ -2,7 +2,7 @@
 namespace Dayssince\Services\Reamaze;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Application;
 
 class Reamaze
 {
@@ -13,10 +13,12 @@ class Reamaze
 
     /**
      * Public constructor.
+     *
+     * @param Application $app
      */
-    public function __construct()
+    public function __construct(Application $app)
     {
-        $this->client = App::make('reamaze.client');
+        $this->client = $app->make('reamaze.client');
     }
 
     /**
@@ -24,24 +26,34 @@ class Reamaze
      *
      * @param string $filter
      * @param string $sort
-     * @param string $for
+     * @param string|array $for
      * @param int $limit
      * @return array
      */
     public function getConversations($filter = null, $sort = null, $for = null, $limit = null)
     {
-        // Defaults.
-        $filter = $filter ?: 'all';
-        $sort = $sort ?: 'created';
+        if (is_array($for)) {
+            $conversations = [];
 
-        // Create url query for guzzle.
-        $query = compact('filter', 'sort');
+            foreach ($for as $contact) {
+                // Get list of conversations per contact.
+                $additional = $this->getConversationsForContact($filter, $sort, $contact, $limit);
 
-        if ($for) {
-            $query['for'] = $for;
+                // Add them to the list.
+                $conversations = array_merge($conversations, $additional);
+            }
+
+            // Do merge sort.
+            $conversations = $this->sortConversations($conversations, $sort);
+
+            // Limit total result. And return it.
+            $conversations = array_splice($conversations, 0, $limit);
+        } else {
+            $conversations = $this->getConversationsForContact($filter, $sort, $for, $limit);
         }
 
-        return $this->paginated('conversations', compact('query'), $limit);
+        // Return result.
+        return $conversations;
     }
 
     /**
@@ -60,6 +72,30 @@ class Reamaze
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $filter
+     * @param string $sort
+     * @param string $for
+     * @param int $limit
+     *
+     * @return array
+     */
+    protected function getConversationsForContact($filter = null, $sort = null, $for = null, $limit = null)
+    {
+        // Defaults.
+        $filter = $filter ?: 'all';
+        $sort = $sort ?: 'created';
+
+        // Create url query for guzzle.
+        $query = compact('filter', 'sort');
+
+        if ($for) {
+            $query['for'] = $for;
+        }
+
+        return $this->paginated('conversations', compact('query'), $limit);
     }
 
     /**
@@ -83,13 +119,39 @@ class Reamaze
                 $response = $this->client->get($resource, $options)->json();
                 $result = array_merge($result, $response[$resource]);
 
+                // Stop loading more pages.
                 if ($limit && count($result) > $limit) {
-                    $result = array_splice($result, 0, $limit);
                     break;
                 }
             }
         }
 
-        return $result;
+        // Limit result set.
+        return array_splice($result, 0, $limit);
+    }
+
+    /**
+     * Sort a list of conversations on a type.
+     *
+     * @param array $conversations
+     * @param string $order Default is 'created', otherwise use 'updated'. Direction is _always_ descending.
+     * @return array
+     */
+    protected function sortConversations(array $conversations, $order)
+    {
+        switch ($order) {
+            case 'updated':
+                $sortKey = 'last_customer_message.created_at';
+                break;
+            default:
+                $sortKey = 'created_at';
+        }
+
+        // Sort on defined key.
+        usort($conversations, function ($a, $b) use ($sortKey) {
+            return array_get($a, $sortKey) < array_get($b, $sortKey);
+        });
+
+        return $conversations;
     }
 } 

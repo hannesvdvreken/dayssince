@@ -100,6 +100,7 @@ return [
          */
         'Dayssince\Providers\AppServiceProvider',
         'Dayssince\Providers\ArtisanServiceProvider',
+        'Dayssince\Providers\BladeServiceProvider',
         'Dayssince\Providers\ErrorServiceProvider',
         'Dayssince\Providers\EventServiceProvider',
         'Dayssince\Providers\LogServiceProvider',
@@ -129,7 +130,7 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-
+        'Illuminate\Html\HtmlServiceProvider',
     ],
 
     /*
@@ -187,7 +188,8 @@ return [
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
-
+        'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Illuminate\Html\FormFacade',
     ],
 
 ];
